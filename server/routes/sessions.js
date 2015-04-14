@@ -14,3 +14,4 @@ exports.findById = function (req, res, next) {
     var id = req.params.id;
     res.send(sessions[id]);
 };
+

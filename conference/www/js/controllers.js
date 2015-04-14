@@ -1,6 +1,4 @@
-angular.module('starter.controllers', [])
 angular.module('starter.controllers', ['starter.services'])
-
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -35,10 +33,12 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('SessionsCtrl', function($scope, Session){
-        $scope.sessions = Session.query();
+.controller('AddsCtrl', function($scope, Add) {
+        $scope.adds = Add.query();
+
     })
 
-.controller('SessionCtrl', function($scope, $stateParams, Session){
-        $scope.session = Session.get({sessionsId: $stateParams.SessionId});
-    });
+.controller('AddCtrl', function($scope, $stateParams, Add){
+        $scope.add = Add.get({addId: $stateParams.AddId});
+    })
+

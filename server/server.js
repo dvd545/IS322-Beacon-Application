@@ -1,7 +1,7 @@
 var express = require('express'),
     bodyParser     = require('body-parser'),
     methodOverride = require('method-override'),
-    sessions = require('./routes/sessions'),
+    adds = require('./routes/adds'),
     app = express();
 
 app.use(bodyParser());          // pull information from html in POST
@@ -16,8 +16,10 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-app.get('/sessions', sessions.findAll);
-app.get('/sessions/:id', sessions.findById);
+app.get('/adds', adds.findAll);
+app.get('/adds/:id', adds.findById);
+/* app.get('/sessions', sessions.findAll);
+app.get('/sessions/:id', sessions.findById); */
 
 app.set('port', process.env.PORT || 5000);
 
