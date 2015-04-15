@@ -1,27 +1,20 @@
-<ion-view title="Add">
+<ion-view>
+    <ion-nav-buttons side="left"></ion-nav-buttons>
+
+    <ion-nav-title>{{add.title}}</ion-nav-title>
     <ion-content class="has-header">
         <div class="list card">
-            <div class="item">
-                <h3>{{add.location}}</h3>
-                <h2>{{add.title}}</h2>
-                <p>{{add.description}}</p>
+            <div class="item-body">
+                <img class="full-image" ng-src="{{add.image}}">
             </div>
-            <div class="item item-body">
-                <p>{{session.oPrice}}</p>
-            </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-                <a class="tab-item">
-                    <i class="icon ion-thumbsup"></i>
-                    Like
-                </a>
-                <a class="tab-item">
-                    <i class="icon ion-chatbox"></i>
-                    Comment
-                </a>
-                <a class="tab-item">
-                    <i class="icon ion-share"></i>
-                    Share
-                </a>
+            <div class="list-card">
+                <div class="item">
+                    <h2> {{add.title}}</h2>
+                    <h1>Sale Price: {{add.dPrice}}</h1>
+                    <p>{{add.oPrice}}</p>
+                    <p>{{add.description}}</p>
+                    <h4>Location: {{add.location}}</h4>
+                </div>
             </div>
         </div>
     </ion-content>
