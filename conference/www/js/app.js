@@ -4,6 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
+//var localDB = new PouchDB("todos")
+//var remoteDB = new PouchDB("http://54.149.42.95:5984/beacons");
+
 angular.module('starter', ['ionic', 'starter.controllers'])
 
 .factory("Beacon", function(){
@@ -44,12 +47,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
-            if(window.cordova && window.cordova.plugins.Keyboard) {
+            if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             }
-            if(window.StatusBar) {
+            if (window.StatusBar) {
                 StatusBar.styleDefault();
             }
+
+            localDB.sync(remoteDB, {live: true});
+
+
 
 
 var delegate = new cordova.plugins.locationManager.Delegate();
