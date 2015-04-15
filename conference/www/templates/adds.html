@@ -22,11 +22,6 @@
         <ion-list>
             <ion-item ng-repeat="add in adds">
                 <div class="list card">
-                    <div class="item">
-                        <h3>{{add.title}}</h3>
-                        <h2>Sale Price: {{add.dPrice}}</h2>
-                        <p>{{add.oPrice}}</p>
-                    </div>
                     <div class="item item-body">
                         <img class="full-image" ng-src="{{add.image}}">
                         <a class="item item-icon-right" href="#/app/adds/{{add.id}}">
@@ -34,7 +29,6 @@
                             {{add.title}}
                             <p>Sale Price: {{add.dPrice}} </p>
                         </a>
-                    </div>
                     </div>
                 </div>
             </ion-item>
