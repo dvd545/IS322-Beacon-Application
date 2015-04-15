@@ -39,6 +39,5 @@ angular.module('starter.controllers', ['starter.services'])
     })
 
 .controller('AddCtrl', function($scope, $stateParams, Add){
-        $scope.add = Add.get({addId: $stateParams.AddId});
+        $scope.add = Add.get({addId: $stateParams.addId});
     })
-

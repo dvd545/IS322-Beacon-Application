@@ -29,14 +29,11 @@
                     </div>
                     <div class="item item-body">
                         <img class="full-image" ng-src="{{add.image}}">
-                        <a class="item item-icon-right" href="#">
+                        <a class="item item-icon-right" href="#/app/adds/{{add.id}}">
                             <i class="icon ion-android-more-vertical"></i>
                             {{add.title}}
                             <p>Sale Price: {{add.dPrice}} </p>
                         </a>
-                        <h4>Product Description: </h4>
-                        <p>{{add.description}}</p>
-                        <p>Location: {{add.location}}</p>
                     </div>
                     <div class="item tabs tabs-secondary tabs-icon-left">
                         <a class="tab-item">
@@ -57,3 +54,5 @@
         </ion-list>
     </ion-content>
 </ion-view>
+
+

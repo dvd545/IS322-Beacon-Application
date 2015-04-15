@@ -126,6 +126,9 @@ var delegate = new cordova.plugins.locationManager.Delegate();
 })
 
 
+
+//states
+
  .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -173,5 +176,7 @@ var delegate = new cordova.plugins.locationManager.Delegate();
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/adds');
+ $urlRouterProvider.otherwise('/app/adds');
 });
+
+
