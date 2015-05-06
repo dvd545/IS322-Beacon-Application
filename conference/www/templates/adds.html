@@ -20,14 +20,14 @@
             </div>
         </div>
         <ion-list>
-            <ion-item ng-repeat="add in adds">
+            <ion-item ng-repeat="flyer in flyers" ng-href="#/app/flyer/{{flyer.id}}">
                 <div class="list card">
                     <div class="item item-body">
-                        <img class="full-image" ng-src="{{add.image}}">
-                        <a class="item item-icon-right" href="#/app/adds/{{add.id}}">
+                        <img class="full-image" ng-src="{{flyer.image}}">
+                        <a class="item item-icon-right" href="#/app/adds/{{flyer._id}}">
                             <i class="icon ion-android-more-vertical"></i>
-                            {{add.title}}
-                            <p>Sale Price: {{add.dPrice}} </p>
+                            {{flyer.title}}
+                            <p>Sale Price: {{flyer.owner}} </p>
                         </a>
                     </div>
                 </div>
@@ -35,5 +35,7 @@
         </ion-list>
     </ion-content>
 </ion-view>
+
+
 
 

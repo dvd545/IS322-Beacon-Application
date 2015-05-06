@@ -1,19 +1,20 @@
 <ion-view>
     <ion-nav-buttons side="left"></ion-nav-buttons>
-    <ion-nav-title>{{add.title}}</ion-nav-title>
+    <ion-nav-title>{{flyer.title}}</ion-nav-title>
     <ion-content class="has-header">
         <div class="list card">
             <div class="item item-body">
-                <img class="full-image" ng-src="{{add.image}}">
+                <img class="full-image" ng-src="{{flyer.image}}">
             </div>
                 <div class="item">
-                    <h3> {{add.title}}</h3>
-                    <h2>Sale Price: {{add.dPrice}}</h2>
-                    <p>{{add.oPrice}}</p>
-                    <p>{{add.description}}</p>
-                    <h4>Location: {{add.location}}</h4>
+                    <h3> {{flyer.locatoin}}</h3>
+                    <h2>Sale Price: {{flyer.minor}}</h2>
+                    <p>{{flyer.owner}}</p>
+                    <p>{{flyer.brand.title}}</p>
+                    <h4>Location: {{flyer.location}}</h4>
                 </div>
 
         </div>
     </ion-content>
 </ion-view>
+

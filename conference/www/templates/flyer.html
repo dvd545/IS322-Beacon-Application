@@ -1,0 +1,30 @@
+<ion-view title="Beacon Detail">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear">Edit</button>
+    </ion-nav-buttons>
+    </div>
+    <ion-content class="has-header">
+        <div class="list card">
+
+            <div class="item item-avatar">
+                <img src="{{flyer.img}}">
+                <h2>{{flyer.title}}</h2>
+                <p>By: {{flyer.owner}}</p>
+                <p>UUID: {{flyer.uuid}}</p>
+                <p>Major: {{flyer.major}}</p>
+                <p>Minor: {{flyer.minor}}</p>
+                <p>Brand: {{flyer.brand}}</p>
+                <p>Date Added: {{flyer.dateAdded}}</p>
+                <p>Located in: {{flyer.location}}</p>
+            </div>
+
+            <div class="item item-body">
+                <img class="half-image" ng-src="{{flyer.image}}">
+                <p>
+                    {{flyer.description}}
+                </p>
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
