@@ -4,8 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-//var localDB = new PouchDB("todos")
-//var remoteDB = new PouchDB("http://54.149.42.95:5984/beacons");
+var localDB = new PouchDB('beacons');
+var remoteDB = new PouchDB('http://54.149.42.95:5984/beacons', {cache : false});
 
 angular.module('starter', ['ionic', 'starter.controllers'])
 
@@ -41,6 +41,32 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         return beacon;
     })
 
+.factory('PouchDBListener', ['$rootScope', function($rootScope) {
+        localDB.changes({
+            live: true,
+            continuous: true,
+            onChange: function(change) {
+                if (!change.deleted) {
+                    $rootScope.$apply(function() {
+                        localDB.get(change.id, function(err, doc) {
+                            $rootScope.$apply(function() {
+                                if (err) console.log(err);
+                                $rootScope.$broadcast('add', doc);
+                            })
+                        });
+                    })
+                } else {
+                    $rootScope.$apply(function() {
+                        $rootScope.$broadcast('delete', change.id);
+                    });
+                }
+            }
+        });
+
+        return true;
+
+    }])
+
 
 
 .run(function(Beacon,$ionicPlatform) {
@@ -54,7 +80,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 StatusBar.styleDefault();
             }
 
-            localDB.sync(remoteDB, {live: true});
 
 
 
@@ -163,22 +188,22 @@ var delegate = new cordova.plugins.locationManager.Delegate();
       }
     }
   })
-    .state('app.adds', {
+    .state('app.flyers', {
       url: "/adds",
       views: {
         'menuContent': {
           templateUrl: "templates/adds.html",
-          controller: 'AddsCtrl'
+          controller: 'FlyersCtrl'
         }
       }
     })
 
-  .state('app.add', {
-    url: "/adds/:addId",
+  .state('app.flyer', {
+    url: "/adds/:flyerId",
     views: {
       'menuContent': {
         templateUrl: "templates/add.html",
-        controller: 'AddCtrl'
+        controller: 'FlyerCtrl'
       }
     }
   });

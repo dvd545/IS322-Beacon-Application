@@ -1,6 +1,21 @@
 angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+        localDB.sync(remoteDB, {live: true, retry: true})
+            .on('error', function (err) {
+                console.log("Syncing stopped in AppCtrl");
+                console.log(err);
+            })
+            .on('paused', function () {
+                console.log("Syncing paused in AppCtrl");
+            })
+            .on('active', function () {
+                console.log("active in AppCtrl");
+            })
+            .on('denied', function (info) {
+                console.log("User denied in AppCtrl");
+                console.log(info);
+            });
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -33,11 +48,37 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('AddsCtrl', function($scope, Add) {
-        $scope.adds = Add.query();
 
+    .controller('FlyersCtrl', function($scope, FlyerService, PouchDBListener) {
+        $scope.$root.enableRight = false;
+
+        $scope.$on('$stateChangeStart', function() {
+            $scope.$root.enableRight = true;
+        });
+
+        $scope.shouldShowDelete = false;
+        $scope.shouldShowReorder = false;
+        $scope.listCanSwipe = true;
+
+        $scope.flyers = FlyerService.getFlyers();
+
+        $scope.$on('add', function(event, flyer) {
+            console.log('a ADD caught')
+            FlyerService.addFlyer(flyer);
+        });
+
+        $scope.$on('delete', function(event, id) {
+            console.log('a DELETE caught')
+            FlyerService.deleteFlyer(id);
+        });
+
+        $scope.delete = function(task) {
+            localDB.get(task._id, function (err, doc) {
+                localDB.remove(doc, function (err, res) {});
+            });
+        };
     })
 
-.controller('AddCtrl', function($scope, $stateParams, Add){
-        $scope.add = Add.get({addId: $stateParams.addId});
-    })
+.controller('FlyerCtrl', function($scope, FlyerService, $stateParams) {
+        $scope.flyer = FlyerService.getFlyer($stateParams.flyerId)
+    });
