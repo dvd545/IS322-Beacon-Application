@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, Beacon) {
         localDB.sync(remoteDB, {live: true, retry: true})
             .on('error', function (err) {
                 console.log("Syncing stopped in AppCtrl");
@@ -16,7 +16,46 @@ angular.module('starter.controllers', ['starter.services'])
                 console.log("User denied in AppCtrl");
                 console.log(info);
             });
-  // Form data for the login modal
+        $scope.phase = 0;
+
+        $scope.major = 0;
+        $scope.minor = 0;
+        $scope.uuid = 0;
+
+        $scope.beaconForm = {};
+
+        $scope.startScanning = function(){
+            $scope.phase = 1;
+            Beacon.setCallback($scope.callback);
+            Beacon.startRanging();
+        };
+
+        $scope.stopScanning = function(){
+            $scope.phase = 0;
+            Beacon.stopRanging();
+        };
+
+        $scope.callback = function(plugin){
+            $scope.$apply(function(){
+                Beacon.stopRanging();
+                $scope.phase = 2;
+                $scope.major = plugin.beacons[0].major;
+                $scope.minor = plugin.beacons[0].minor;
+                $scope.uuid = plugin.beacons[0].uuid;
+            });
+        };
+
+        $scope.foundBeacon = function(){
+            console.log("I am the callback!");
+            Beacon.stopRanging();
+        };
+
+        $scope.helloBeaconScanner = function(){
+            Beacon.setCallback($scope.foundBeacon);
+            Beacon.startRanging();
+        };
+
+        // Form data for the login modal
   $scope.loginData = {};
 
   // Create the login modal that we will use later
@@ -49,7 +88,18 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 
+
     .controller('FlyersCtrl', function($scope, FlyerService, PouchDBListener) {
+        $scope.showAd = false;
+
+        $scope.checkBeacon = function(){
+            console.log("Checking beacon status");
+            $scope.showAd = Beacon.getStatus() === 1;
+        };
+        $scope.intervalTime = function(){
+            $interval(function(){$scope.checkBeacon();},2000);
+        };
+
         $scope.$root.enableRight = false;
 
         $scope.$on('$stateChangeStart', function() {
@@ -60,15 +110,16 @@ angular.module('starter.controllers', ['starter.services'])
         $scope.shouldShowReorder = false;
         $scope.listCanSwipe = true;
 
+
         $scope.flyers = FlyerService.getFlyers();
 
         $scope.$on('add', function(event, flyer) {
-            console.log('a ADD caught')
+            //console.log('a ADD caught')
             FlyerService.addFlyer(flyer);
         });
 
         $scope.$on('delete', function(event, id) {
-            console.log('a DELETE caught')
+            //console.log('a DELETE caught')
             FlyerService.deleteFlyer(id);
         });
 
@@ -81,4 +132,44 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('FlyerCtrl', function($scope, FlyerService, $stateParams) {
         $scope.flyer = FlyerService.getFlyer($stateParams.flyerId)
-    });
+    })
+
+.controller('control',function($scope,Beacon,$interval){
+    $scope.sBeacon = BeaconService.getBeaconInfo();
+    /*
+     $scope.button = {
+     text: "Start Monitoring",
+     status: 0, //0 for off, 1 for on
+     icon: "ion-eye",
+     };
+     */
+
+
+    $scope.showAd = false;
+
+    $scope.checkBeacon = function(){
+        if(Beacon.getStatus() == 1){
+            $scope.showAd = true;
+        }
+        else{
+            $scope.showAd = false;
+        }
+    };
+
+    $interval(function(){$scope.checkBeacon();}, 2000);
+    /*
+     $scope.pushButton = function(){
+     if($scope.button.status == 0){
+     $scope.button.status = 1;
+     $scope.button.text = "Stop Monitoring";
+     $scope.button.icon = "ion-eye-disabled";
+
+     //start beacon
+     }else{
+     $scope.button.status = 0;
+     $scope.button.text = "Start Monitoring";
+     $scope.button.icon = "ion-eye";
+     }
+     };
+     */
+});
