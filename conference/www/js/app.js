@@ -50,12 +50,29 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         };
 
         beacon.getStatus = function(){
+            console.log("The beacon status is " + beacon.status);
             return beacon.status;
         };
 
         beacon.didstartRanging = function(plugin){
-            console.log("attempting to find plugin beacon data");
-            console.log(plugin.beacons[5]);
+            if(plugin.beacons[0].proximity == "ProximityImmediate"){
+                console.log("found a beacon thats Immediate!")
+                beacon.status = 1;
+            } else if (plugin.beacons[0].proximity == "ProximityNear"){
+                console.log("found a beacon thats nearby!")
+                beacon.status = 1;
+            } else {
+                console.log("beacon is not close enough");
+                beacon.status = 0;
+            }
+            var temp = plugin.beacons;
+            /*
+            for(vals in temp[0]){
+                console.log("Going through beacon values" + vals);
+            }*/
+            console.log(temp[0]);
+            console.log("This is the proximity: " + temp[0].proximity);
+
 
 
         };
@@ -130,16 +147,17 @@ var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, 
 cordova.plugins.locationManager.setDelegate(delegate);
 
 cordova.plugins.locationManager.requestWhenInUseAuthorization();
-
+/*
 cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
     .fail(console.error)
     .done();
+    */
 
-/*
+
  cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
  .fail(console.error)
  .done();
-*/
+
     });
 
 
@@ -216,15 +234,16 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
                   controller: 'FlyerCtrl'
               }
           }
-          })
-              .state('app.test', {
-                  url: "/sessions",
-                  views: {
-                      'menuContent': {
-                          templateUrl: "templates/sessions.html",
-                          controller: 'control'
-                      }
-                  }
+      })
+
+      .state('app.pants', {
+          url: "/pants",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/sessions.html",
+                  controller: 'PantsCtrl'
+              }
+          }
   });
   // if none of the above states are matched, use this as the fallback
  $urlRouterProvider.otherwise('/app/adds');
