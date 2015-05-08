@@ -89,16 +89,15 @@ angular.module('starter.controllers', ['starter.services'])
 
 
 
-    .controller('FlyersCtrl', function($scope, FlyerService, PouchDBListener) {
+    .controller('FlyersCtrl', function($scope,Beacon, $interval, FlyerService, PouchDBListener) {
         $scope.showAd = false;
 
         $scope.checkBeacon = function(){
             console.log("Checking beacon status");
             $scope.showAd = Beacon.getStatus() === 1;
         };
-        $scope.intervalTime = function(){
-            $interval(function(){$scope.checkBeacon();},2000);
-        };
+        $interval(function(){$scope.checkBeacon();}, 2000);
+
 
         $scope.$root.enableRight = false;
 
@@ -128,6 +127,10 @@ angular.module('starter.controllers', ['starter.services'])
                 localDB.remove(doc, function (err, res) {});
             });
         };
+    })
+
+.controller('PantsCtrl', function($scope, FlyerService, $stateParams) {
+        $scope.FlyerService.getPants();
     })
 
 .controller('FlyerCtrl', function($scope, FlyerService, $stateParams) {
