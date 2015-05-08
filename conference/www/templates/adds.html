@@ -1,4 +1,4 @@
-<ion-view view-title="Adds">
+<ion-view view-title="Beacon Detection">
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
@@ -7,11 +7,7 @@
         <a class = "list card animate-if" ng-if="showAd == true">
             <a class="item item-icon-left">
                 <i class="icon ion-wifi"></i>
-                Beacon Has been detected
-            </a>
-            <a class="item item-icon-left bar-balanced">
-                <i class="icon ion-connection-bars"></i>
-                {{beaconState}}
+                Beacon status: {{beaconState}}
             </a>
             <a class="item item-icon-left" ng-if="beaconState == 'Immediate'">
                 <i class="icon ion-card"></i>
