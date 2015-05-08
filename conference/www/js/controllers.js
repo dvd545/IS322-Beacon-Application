@@ -1,6 +1,7 @@
 angular.module('starter.controllers', ['starter.services'])
 
-    .controller('AppCtrl', function($scope, $ionicModal, $timeout, Beacon) {
+    .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicLoading, Beacon) {
+
         localDB.sync(remoteDB, {live: true, retry: true})
             .on('error', function (err) {
                 console.log("Syncing stopped in AppCtrl");
@@ -16,44 +17,6 @@ angular.module('starter.controllers', ['starter.services'])
                 console.log("User denied in AppCtrl");
                 console.log(info);
             });
-        $scope.phase = 0;
-
-        $scope.major = 0;
-        $scope.minor = 0;
-        $scope.uuid = 0;
-
-        $scope.beaconForm = {};
-
-        $scope.startScanning = function(){
-            $scope.phase = 1;
-            Beacon.setCallback($scope.callback);
-            Beacon.startRanging();
-        };
-
-        $scope.stopScanning = function(){
-            $scope.phase = 0;
-            Beacon.stopRanging();
-        };
-
-        $scope.callback = function(plugin){
-            $scope.$apply(function(){
-                Beacon.stopRanging();
-                $scope.phase = 2;
-                $scope.major = plugin.beacons[0].major;
-                $scope.minor = plugin.beacons[0].minor;
-                $scope.uuid = plugin.beacons[0].uuid;
-            });
-        };
-
-        $scope.foundBeacon = function(){
-            console.log("I am the callback!");
-            Beacon.stopRanging();
-        };
-
-        $scope.helloBeaconScanner = function(){
-            Beacon.setCallback($scope.foundBeacon);
-            Beacon.startRanging();
-        };
 
 
         // Form data for the login modal
@@ -90,15 +53,18 @@ angular.module('starter.controllers', ['starter.services'])
 
 
 
-    .controller('FlyersCtrl', function($scope, Beacon, $interval, FlyerService, PouchDBListener) {
+    .controller('FlyersCtrl', function($scope, $interval, Beacon, FlyerService, PouchDBListener) {
         $scope.showAd = false;
 
         $scope.checkBeacon = function(){
             console.log("Checking beacon status");
             $scope.showAd = Beacon.getStatus() === 1;
         };
-        $interval(function(){$scope.checkBeacon();}, 2000);
+        $interval(function(){$scope.checkBeacon(), $scope.getBeaconStatus();}, 2000);
 
+        $scope.getBeaconStatus = function(){
+            $scope.beaconState = Beacon.getProximity();
+        }
 
         $scope.$root.enableRight = false;
 
@@ -132,6 +98,19 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('FlyerCtrl', function($scope, FlyerService, $stateParams) {
         $scope.flyer = FlyerService.getFlyer($stateParams.flyerId)
-    });
+    })
+
+.controller('beaconCtrl', function($scope, Beacon, $stateParams) {
+        $scope.showAd = false;
+
+        $scope.checkBeacon = function(){
+            console.log("Checking beacon status");
+            $scope.showAd = Beacon.getStatus() === 1;
+        };
+        $interval(function(){$scope.checkBeacon(), $scope.getBeaconStatus();}, 2000);
+
+        $scope.getBeaconStatus = function(){
+            $scope.beaconState = Beacon.getProximity();
+ }});
 
 

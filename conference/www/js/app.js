@@ -8,6 +8,7 @@ var localDB = new PouchDB('ads');
 var remoteDB = new PouchDB('http://54.149.42.95:5984/ads', {cache : false});
 
 angular.module('starter', ['ionic', 'starter.controllers'])
+
     .factory('PouchDBListener', ['$rootScope', function($rootScope) {
         localDB.changes({
             live: true,
@@ -39,6 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         beacon.beaconRegion = null;
         beacon.delegate = null;
         beacon.status = 0;
+        beacon.proximity = "not detected";
 
         beacon.helloWorld = function(){
             //console.log("HELLO WORLD!");
@@ -47,6 +49,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         beacon.startedMonitoring = function(plugin){
             //console.log("I am inside of the beacon monitoring");
 
+        };
+
+        beacon.getProximity = function(){
+            console.log("getting beacon proximity state");
+          return beacon.proximity;
         };
 
         beacon.getStatus = function(){
@@ -58,22 +65,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             if(plugin.beacons[0].proximity == "ProximityImmediate"){
                 console.log("found a beacon thats Immediate!");
                 beacon.status = 1;
+                beacon.proximity = "Immediate";
             } else if (plugin.beacons[0].proximity == "ProximityNear"){
                 console.log("found a beacon thats nearby!");
                 beacon.status = 1;
+                beacon.proximity = "Nearby";
             } else {
                 console.log("beacon is not close enough");
                 beacon.status = 0;
+                beacon.proximity = "far away";
             }
-            var temp = plugin.beacons;
-            /*
-            for(vals in temp[0]){
-                console.log("Going through beacon values" + vals);
-            }*/
-            //console.log(temp[0]);
-            //console.log("This is the proximity: " + temp[0].proximity);
-
-
 
         };
 
@@ -162,6 +163,7 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
 
 
 })
+
 .controller('control',function($scope,Beacon,$interval){
     /*
      $scope.button = {
@@ -236,12 +238,12 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
           }
       })
 
-      .state('app.test', {
-          url: "/pants",
+      .state('app.beacon', {
+          url: "/beacon",
           views: {
               'menuContent': {
                   templateUrl: "templates/sessions.html",
-                  controller: 'PantsCtrl'
+                  controller: 'beaconCtrl'
               }
           }
   });
