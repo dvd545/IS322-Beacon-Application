@@ -1,0 +1,14 @@
+CACHE MANIFEST
+CACHE:
+index.html
+css/style.css
+templates/add.html
+templates/adds.html
+templates/menu.html
+js/app.js
+js/controllers.js
+js/services.js
+
+
+NETWORK:
+*
