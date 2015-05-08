@@ -41,25 +41,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         beacon.status = 0;
 
         beacon.helloWorld = function(){
-            console.log("HELLO WORLD!");
+            //console.log("HELLO WORLD!");
         };
 
         beacon.startedMonitoring = function(plugin){
-            console.log("I am inside of the beacon monitoring");
+            //console.log("I am inside of the beacon monitoring");
 
         };
 
         beacon.getStatus = function(){
-            console.log("The beacon status is " + beacon.status);
+            //console.log("The beacon status is " + beacon.status);
             return beacon.status;
         };
 
         beacon.didstartRanging = function(plugin){
             if(plugin.beacons[0].proximity == "ProximityImmediate"){
-                console.log("found a beacon thats Immediate!")
+                console.log("found a beacon thats Immediate!");
                 beacon.status = 1;
             } else if (plugin.beacons[0].proximity == "ProximityNear"){
-                console.log("found a beacon thats nearby!")
+                console.log("found a beacon thats nearby!");
                 beacon.status = 1;
             } else {
                 console.log("beacon is not close enough");
@@ -70,8 +70,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             for(vals in temp[0]){
                 console.log("Going through beacon values" + vals);
             }*/
-            console.log(temp[0]);
-            console.log("This is the proximity: " + temp[0].proximity);
+            //console.log(temp[0]);
+            //console.log("This is the proximity: " + temp[0].proximity);
 
 
 
@@ -236,7 +236,7 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
           }
       })
 
-      .state('app.pants', {
+      .state('app.test', {
           url: "/pants",
           views: {
               'menuContent': {

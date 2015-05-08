@@ -3,22 +3,6 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <div class = "list card animate-if" ng-if="showad == true">
-            <div class="item item-icon-left">
-                <i class="icon ion-icecream"></i>
-                <h2>Joe's Ice Cream</h2>
-                <p>123 Main Street</p>
-                <p>201-555-5555</p>
-            </div>
-
-            <div class="item item_image">
-                <img src="img/icecream.jpg" class = "scale-to-fit">
-            </div>
-
-            <div class="item">
-                Come by for a lick!
-            </div>
-        </div>
         <ion-list>
             <ion-item ng-repeat="flyer in flyers" ng-href="#/app/flyer/{{flyer.id}}">
                 <div class="list card">
@@ -35,7 +19,3 @@
         </ion-list>
     </ion-content>
 </ion-view>
-
-
-
-

@@ -2,11 +2,11 @@ CACHE MANIFEST
 CACHE:
 index.html
 css/style.css
-img/
 templates/add.html
 templates/adds.html
 js/app.js
 js/controllers.js
+js/services.js
 js/services.js
 
 

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Beacon) {
+    .controller('AppCtrl', function($scope, $ionicModal, $timeout, Beacon) {
         localDB.sync(remoteDB, {live: true, retry: true})
             .on('error', function (err) {
                 console.log("Syncing stopped in AppCtrl");
@@ -55,6 +55,7 @@ angular.module('starter.controllers', ['starter.services'])
             Beacon.startRanging();
         };
 
+
         // Form data for the login modal
   $scope.loginData = {};
 
@@ -89,7 +90,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 
 
-    .controller('FlyersCtrl', function($scope,Beacon, $interval, FlyerService, PouchDBListener) {
+    .controller('FlyersCtrl', function($scope, Beacon, $interval, FlyerService, PouchDBListener) {
         $scope.showAd = false;
 
         $scope.checkBeacon = function(){
@@ -113,12 +114,12 @@ angular.module('starter.controllers', ['starter.services'])
         $scope.flyers = FlyerService.getFlyers();
 
         $scope.$on('add', function(event, flyer) {
-            //console.log('a ADD caught')
+            console.log('a ADD caught');
             FlyerService.addFlyer(flyer);
         });
 
         $scope.$on('delete', function(event, id) {
-            //console.log('a DELETE caught')
+            console.log('a DELETE caught');
             FlyerService.deleteFlyer(id);
         });
 
@@ -129,50 +130,8 @@ angular.module('starter.controllers', ['starter.services'])
         };
     })
 
-.controller('PantsCtrl', function($scope, FlyerService, $stateParams) {
-        $scope.FlyerService.getPants();
-    })
-
 .controller('FlyerCtrl', function($scope, FlyerService, $stateParams) {
         $scope.flyer = FlyerService.getFlyer($stateParams.flyerId)
-    })
-
-.controller('control',function($scope,Beacon,$interval){
-    $scope.sBeacon = BeaconService.getBeaconInfo();
-    /*
-     $scope.button = {
-     text: "Start Monitoring",
-     status: 0, //0 for off, 1 for on
-     icon: "ion-eye",
-     };
-     */
+    });
 
 
-    $scope.showAd = false;
-
-    $scope.checkBeacon = function(){
-        if(Beacon.getStatus() == 1){
-            $scope.showAd = true;
-        }
-        else{
-            $scope.showAd = false;
-        }
-    };
-
-    $interval(function(){$scope.checkBeacon();}, 2000);
-    /*
-     $scope.pushButton = function(){
-     if($scope.button.status == 0){
-     $scope.button.status = 1;
-     $scope.button.text = "Stop Monitoring";
-     $scope.button.icon = "ion-eye-disabled";
-
-     //start beacon
-     }else{
-     $scope.button.status = 0;
-     $scope.button.text = "Start Monitoring";
-     $scope.button.icon = "ion-eye";
-     }
-     };
-     */
-});
