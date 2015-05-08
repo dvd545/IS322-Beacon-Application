@@ -1,27 +1,20 @@
-<ion-view view-title="Beacon Detection">
+<ion-view view-title="Adds">
     <ion-nav-buttons side="left">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-
-        <a class = "list card animate-if" ng-if="showAd == true">
-            <a class="item item-icon-left">
-                <i class="icon ion-wifi"></i>
-                Beacon status: {{beaconState}}
-            </a>
-            <a class="item item-icon-left" ng-if="beaconState == 'Immediate'">
-                <i class="icon ion-card"></i>
-                Right on the money!
-            </a>
-            <a class="item item-icon-left" ng-if="beaconState == 'Nearby'">
-                <i class="icon ion-ios-cart"></i>
-                Getting Closer
-            </a>
-            <a class="item item-icon-left" ng-if="beaconState == 'far away'">
-                <i class="icon ion-ios-pulse-strong"></i>
-                Beacon signal is weak
-            </a>
-         </a>
+        <div class="card" ng-show="showAd == false">
+            <div class="item item-divider">
+                Location Based Advertising
+            </div>
+            <div class="item item-text-wrap">
+                Advertisements will display if you are near a beacon
+            </div>
+            <div class="item item-divider assertive">
+                    <i class="icon ion-wifi"></i>
+                    Beacon status: {{beaconState}}
+            </div>
+        </div>
         <ion-list>
             <ion-item ng-repeat="flyer in flyers" ng-href="#/app/flyer/{{flyer.id}}">
                 <div class="list card">
@@ -35,5 +28,6 @@
                     </div>
                 </div>
             </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

@@ -238,12 +238,22 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
           }
       })
 
+      .state('app.map', {
+          url: "/map",
+          views: {
+              'menuContent': {
+                  templateUrl: "templates/map.html",
+                  controller: 'MapCtrl'
+              }
+          }
+      })
+
       .state('app.beacon', {
           url: "/beacon",
           views: {
               'menuContent': {
-                  templateUrl: "templates/sessions.html",
-                  controller: 'beaconCtrl'
+                  templateUrl: "templates/beacon.html",
+                  controller: 'BeaconCtrl'
               }
           }
   });

@@ -1,5 +1,8 @@
-/* Empty. Add your own CSS if you like */
-alternate-nav-color {
-    background-color: crimson;
+#map {
+    width: 100%;
+    height: 100%;
+}
 
+.scroll {
+    height: 100%;
 }
