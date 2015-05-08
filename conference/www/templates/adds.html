@@ -16,6 +16,25 @@
             </div>
         </div>
         <ion-list>
+
+            <a class = "list card animate-if" ng-if="showAd == true">
+                <a class="item item-icon-left" ng-if="showAd ==true">
+                    <i class="icon ion-wifi"></i>
+                    Beacon status: {{beaconState}}
+                </a>
+                <a class="item item-icon-left" ng-if="beaconState == 'Immediate'">
+                    <i class="icon ion-card"></i>
+                    Right on the money!
+                </a>
+                <a class="item item-icon-left" ng-if="beaconState == 'Nearby'">
+                    <i class="icon ion-ios-cart"></i>
+                    Getting Closer
+                </a>
+                <a class="item item-icon-left" ng-if="beaconState == 'far away'">
+                    <i class="icon ion-ios-pulse-strong"></i>
+                    Beacon signal is weak
+                </a>
+            </a>
             <ion-item ng-repeat="flyer in flyers" ng-href="#/app/flyer/{{flyer.id}}">
                 <div class="list card">
                     <div class="item item-body">

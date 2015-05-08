@@ -164,44 +164,6 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
 
 })
 
-.controller('control',function($scope,Beacon,$interval){
-    /*
-     $scope.button = {
-     text: "Start Monitoring",
-     status: 0, //0 for off, 1 for on
-     icon: "ion-eye",
-     };
-     */
-
-
-    $scope.showAd = false;
-
-    $scope.checkBeacon = function(){
-        if(Beacon.getStatus() == 1){
-            $scope.showAd = true;
-        }
-        else{
-            $scope.showAd = false;
-        }
-    };
-
-    $interval(function(){$scope.checkBeacon();}, 2000);
-    /*
-     $scope.pushButton = function(){
-     if($scope.button.status == 0){
-     $scope.button.status = 1;
-     $scope.button.text = "Stop Monitoring";
-     $scope.button.icon = "ion-eye-disabled";
-
-     //start beacon
-     }else{
-     $scope.button.status = 0;
-     $scope.button.text = "Start Monitoring";
-     $scope.button.icon = "ion-eye";
-     }
-     };
-     */
-})
 
 
 
@@ -238,15 +200,6 @@ cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
           }
       })
 
-      .state('app.map', {
-          url: "/map",
-          views: {
-              'menuContent': {
-                  templateUrl: "templates/map.html",
-                  controller: 'MapCtrl'
-              }
-          }
-      })
 
       .state('app.beacon', {
           url: "/beacon",
